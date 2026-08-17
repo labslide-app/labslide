@@ -1,0 +1,53 @@
+services:
+  # ==================== PostgreSQL ====================
+  postgres:
+    image: postgres:16-alpine
+    container_name: labslide-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: labslide
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-labslide123}
+      POSTGRES_DB: labslide
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labslide -d labslide"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==================== 后端 FastAPI ====================
+  backend:
+    build: ./backend
+    container_name: labslide-backend
+    restart: unless-stopped
+    environment:
+      ENV: production
+      DATABASE_URL: postgresql+asyncpg://labslide:${POSTGRES_PASSWORD:-labslide123}@postgres:5432/labslide
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-me-to-a-long-random-secret-string}
+      MINIO_HOST: 127.0.0.1
+      MINIO_PORT: "1"
+    volumes:
+      - storage_data:/app/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ==================== 前端（nginx 托管静态文件 + 反向代理） ====================
+  frontend:
+    build: ./frontend
+    container_name: labslide-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
+  storage_data:
