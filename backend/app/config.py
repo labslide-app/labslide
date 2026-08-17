@@ -8,10 +8,10 @@ class Settings(BaseSettings):
     ENV: str = "development"
 
     # 数据库
-    DATABASE_URL: str = "postgresql+asyncpg://labslide:labslide123@postgres:5432/labslide"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./labslide.db"
 
     # JWT
-    JWT_SECRET_KEY: str = "change-me-to-a-random-secret-key-in-production"
+    JWT_SECRET_KEY: str = "labslide-production-secret-key-2024"
     JWT_ALGORITHM: str = "HS256"
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
 
@@ -30,7 +30,12 @@ class Settings(BaseSettings):
     OSS_BUCKET_NAME: str = ""
 
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    BACKEND_CORS_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://labslide-app.netlify.app",
+        "https://labslide.onrender.com",
+    ]
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
