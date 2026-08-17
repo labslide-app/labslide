@@ -17,7 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.database import get_db
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.models.meeting import Meeting
 from app.models.presentation import Presentation, PresentationStatus
 from app.models.annotation import Annotation
@@ -148,6 +148,9 @@ async def upload_presentation(
     title = Path(file.filename).stem
     object_name = f"presentations/{presentation_id}/original/{_sanitize_filename(file.filename)}"
 
+    # 先上传文件到存储，再写数据库记录
+    await upload_bytes(content, object_name, content_type=file.content_type)
+
     presentation = Presentation(
         id=presentation_id,
         meeting_id=meeting_id,
@@ -159,8 +162,6 @@ async def upload_presentation(
     db.add(presentation)
     await db.commit()
     await db.refresh(presentation)
-
-    await upload_bytes(content, object_name, content_type=file.content_type)
 
     return PresentationUploadResponse(
         id=presentation.id,
@@ -314,7 +315,7 @@ async def delete_annotation(
 
     _ensure_group_member(current_user, annotation.presentation.meeting)
 
-    if annotation.user_id != current_user.id and current_user.role.value != "admin":
+    if annotation.user_id != current_user.id and current_user.role != UserRole.admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="仅可删除自己的批注")
 
     await db.delete(annotation)

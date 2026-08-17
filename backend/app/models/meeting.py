@@ -29,10 +29,4 @@ class Meeting(Base):
     # 关系
     group = relationship("Group", back_populates="meetings")
     presentations = relationship("Presentation", back_populates="meeting")
-    summaries = relationship("MeetingSummary", back_populates="meeting")
-    access_code = relationship(
-        "AccessCode", back_populates="meeting", uselist=False,
-        primaryjoin="Meeting.id == foreign(AccessCode.meeting_id)",
-        viewonly=True,
-    )
     creator = relationship("User", foreign_keys=[created_by])

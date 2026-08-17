@@ -1,6 +1,7 @@
 import uuid as _uuid
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
@@ -205,9 +206,26 @@ async def dissolve_group(
         member.group_id = None
         member.role = UserRole.student
 
-    # 删除课题组
-    await db.delete(group)
     await db.flush()
+
+    # 级联删除关联的组会和 PPT
+    from app.models.meeting import Meeting
+    from app.models.presentation import Presentation
+    from app.models.annotation import Annotation
+
+    meetings_result = await db.execute(select(Meeting).where(Meeting.group_id == group_id))
+    for meeting in meetings_result.scalars().all():
+        pres_result = await db.execute(select(Presentation).where(Presentation.meeting_id == meeting.id))
+        for pres in pres_result.scalars().all():
+            ann_result = await db.execute(select(Annotation).where(Annotation.presentation_id == pres.id))
+            for ann in ann_result.scalars().all():
+                await db.delete(ann)
+            await db.delete(pres)
+        await db.delete(meeting)
+
+    await db.flush()
+    await db.delete(group)
+    await db.commit()
 
     return MessageResponse(message="课题组已解散")
 

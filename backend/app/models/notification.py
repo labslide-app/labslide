@@ -35,4 +35,4 @@ class Notification(Base):
     )
 
     # 关系
-    user = relationship("User", back_populates="notifications")
+    user = relationship("User", backref="notifications")

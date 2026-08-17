@@ -37,10 +37,3 @@ class User(Base):
     group = relationship("Group", back_populates="members", foreign_keys=[group_id])
     owned_presentations = relationship("Presentation", back_populates="owner", foreign_keys="Presentation.owner_id")
     annotations = relationship("Annotation", back_populates="user")
-    notifications = relationship("Notification", back_populates="user")
-    access_requests_made = relationship(
-        "AccessRequest", back_populates="requester", foreign_keys="AccessRequest.requester_id"
-    )
-    access_requests_received = relationship(
-        "AccessRequest", back_populates="owner", foreign_keys="AccessRequest.owner_id"
-    )

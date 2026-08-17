@@ -25,8 +25,16 @@ async def websocket_notifications(websocket: WebSocket):
 async def broadcast_notification(message: dict):
     """向所有连接的客户端广播通知"""
     import json
+
+    disconnected = []
     for connection in active_connections:
         try:
             await connection.send_json(message)
         except Exception:
-            active_connections.remove(connection)
+            disconnected.append(connection)
+
+    for conn in disconnected:
+        try:
+            active_connections.remove(conn)
+        except ValueError:
+            pass

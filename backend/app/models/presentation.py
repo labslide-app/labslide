@@ -46,6 +46,4 @@ class Presentation(Base):
     # 关系
     meeting = relationship("Meeting", back_populates="presentations")
     owner = relationship("User", back_populates="owned_presentations", foreign_keys=[owner_id])
-    slides = relationship("Slide", back_populates="presentation", cascade="all, delete-orphan")
     annotations = relationship("Annotation", back_populates="presentation", cascade="all, delete-orphan")
-    access_requests = relationship("AccessRequest", back_populates="presentation")

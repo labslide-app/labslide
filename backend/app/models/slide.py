@@ -25,4 +25,4 @@ class Slide(Base):
     )
 
     # 关系
-    presentation = relationship("Presentation", back_populates="slides")
+    presentation = relationship("Presentation", backref="slides")

@@ -32,4 +32,4 @@ class MeetingSummary(Base):
     )
 
     # 关系
-    meeting = relationship("Meeting", back_populates="summaries")
+    meeting = relationship("Meeting", backref="summaries")

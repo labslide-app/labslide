@@ -104,7 +104,7 @@ async def create_meeting(
         created_by=current_user.id,
     )
     db.add(meeting)
-    await db.commit()
+    await db.flush()
     await db.refresh(meeting)
 
     # 重新加载带 creator 关系

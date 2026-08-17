@@ -39,4 +39,4 @@ class AccessCode(Base):
     )
 
     # 关系
-    meeting = relationship("Meeting", back_populates="access_code", foreign_keys=[meeting_id])
+    meeting = relationship("Meeting", backref="access_code", foreign_keys=[meeting_id], uselist=False)

@@ -55,6 +55,6 @@ class AccessRequest(Base):
     )
 
     # 关系
-    presentation = relationship("Presentation", back_populates="access_requests")
-    requester = relationship("User", back_populates="access_requests_made", foreign_keys=[requester_id])
-    owner = relationship("User", back_populates="access_requests_received", foreign_keys=[owner_id])
+    presentation = relationship("Presentation", backref="access_requests")
+    requester = relationship("User", backref="access_requests_made", foreign_keys=[requester_id])
+    owner = relationship("User", backref="access_requests_received", foreign_keys=[owner_id])

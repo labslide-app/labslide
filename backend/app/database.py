@@ -33,19 +33,16 @@ async def get_db() -> AsyncSession:  # type: ignore[misc]
     async with async_session() as session:
         try:
             yield session
-            await session.commit()
         except Exception:
             await session.rollback()
             raise
-        finally:
-            await session.close()
 
 
 async def check_db_connection() -> bool:
     """检查数据库连接是否正常"""
     try:
         async with engine.connect() as conn:
-            await conn.execute(DeclarativeBase.metadata.tables.get("__dummy__", False) or __import__("sqlalchemy").text("SELECT 1"))
+            await conn.execute(__import__("sqlalchemy").text("SELECT 1"))
         return True
     except Exception:
         return False

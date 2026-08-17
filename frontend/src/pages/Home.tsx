@@ -4,11 +4,14 @@ import apiClient from "../api/client";
 import { useAuth } from "../contexts/AuthContext";
 
 function Home() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [healthStatus, setHealthStatus] = useState<string>("正在检查...");
   const [dbStatus, setDbStatus] = useState<string>("正在检查...");
 
   useEffect(() => {
+    // 确保认证状态加载完成后才检查
+    if (loading) return;
+
     apiClient
       .get("/health")
       .then((res) => setHealthStatus(res.data.message))
@@ -18,7 +21,7 @@ function Home() {
       .get("/health/db")
       .then((res) => setDbStatus(res.data.message))
       .catch(() => setDbStatus("连接失败"));
-  }, []);
+  }, [loading]);
 
   // ==================== 已登录用户 - 仪表盘 ====================
   if (user) {

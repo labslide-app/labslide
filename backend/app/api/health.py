@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 
-from app.database import get_db
+from app.database import get_db, check_db_connection
 from app.schemas.user import MessageResponse
 
 router = APIRouter()
@@ -15,10 +15,9 @@ async def health_check():
 
 
 @router.get("/health/db", response_model=MessageResponse)
-async def db_health_check(db: AsyncSession = Depends(get_db)):
+async def db_health_check():
     """数据库健康检查"""
-    try:
-        await db.execute(text("SELECT 1"))
+    ok = await check_db_connection()
+    if ok:
         return MessageResponse(message="Database connection is healthy")
-    except Exception as e:
-        return MessageResponse(message=f"Database connection failed: {str(e)}")
+    return MessageResponse(message="Database connection failed")
