@@ -22,14 +22,9 @@ services:
       - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
         value: "1440"
       - key: STORAGE_DIR
-        value: /var/data/storage
+        value: storage
       - key: BACKEND_CORS_ORIGINS
         value: '["https://labslide.pages.dev","https://labslide-app.netlify.app","https://labslide.onrender.com"]'
-    disk:
-      name: labslide-storage
-      mountPath: /var/data
-      sizeGB: 1
-
-databases:
+    databases:
   - name: labslide-db
     plan: free
