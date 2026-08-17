@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
+        "https://labslide.pages.dev",
         "https://labslide-app.netlify.app",
         "https://labslide.onrender.com",
     ]
