@@ -10,7 +10,7 @@ from app.config import get_settings
 logger = logging.getLogger(__name__)
 settings = get_settings()
 
-STORAGE_DIR = Path("storage")
+STORAGE_DIR = Path(settings.STORAGE_DIR)
 STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 # MinIO 客户端（惰性初始化，连接失败时回退本地存储）

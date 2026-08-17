@@ -4,7 +4,14 @@ from app.config import get_settings
 
 settings = get_settings()
 
-_is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+# Render 提供的 PostgreSQL 连接串需要转换为异步格式
+_db_url = settings.DATABASE_URL
+if _db_url.startswith("postgres://"):
+    _db_url = _db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif _db_url.startswith("postgresql://"):
+    _db_url = _db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+_is_sqlite = _db_url.startswith("sqlite")
 
 _engine_kwargs = {
     "echo": settings.ENV == "development",
@@ -16,7 +23,7 @@ if not _is_sqlite:
         "pool_pre_ping": True,
     })
 
-engine = create_async_engine(settings.DATABASE_URL, **_engine_kwargs)
+engine = create_async_engine(_db_url, **_engine_kwargs)
 
 async_session = async_sessionmaker(
     engine,

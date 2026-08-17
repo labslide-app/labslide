@@ -48,7 +48,7 @@ app.include_router(presentations.router, prefix="/api/v1", tags=["presentations"
 from fastapi.staticfiles import StaticFiles
 import os as _os
 
-_storage_dir = "storage"
+_storage_dir = settings.STORAGE_DIR
 if _os.path.isdir(_storage_dir):
     app.mount("/api/v1/static", StaticFiles(directory=_storage_dir), name="static")
 
