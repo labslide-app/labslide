@@ -25,6 +25,7 @@ services:
         value: storage
       - key: BACKEND_CORS_ORIGINS
         value: '["https://labslide.pages.dev","https://labslide-app.netlify.app","https://labslide.onrender.com"]'
-    databases:
+
+databases:
   - name: labslide-db
     plan: free
