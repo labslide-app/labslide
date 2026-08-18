@@ -41,6 +41,7 @@ ALLOWED_MIME_TYPES = {
     "application/octet-stream",
 }
 MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB
+DB_FILE_MAX = 50 * 1024 * 1024     # 50MB 以内存入数据库保证持久化
 
 
 def _status_str(pres: Presentation) -> str:
@@ -158,6 +159,8 @@ async def upload_presentation(
         title=title,
         file_path=object_name,
         status=PresentationStatus.ready,
+        file_data=content if len(content) <= DB_FILE_MAX else None,
+        file_size=len(content),
     )
     db.add(presentation)
     await db.commit()
@@ -238,7 +241,14 @@ async def get_presentation_file(
     presentation = await _get_presentation_or_404(db, presentation_id)
     _ensure_group_member(current_user, presentation.meeting)
 
-    data = await read_file(presentation.file_path)
+    # 优先从数据库读取（持久化存储），回退到文件系统
+    stmt = select(Presentation.file_data).where(Presentation.id == presentation_id)
+    result = await db.execute(stmt)
+    data = result.scalar_one_or_none()
+
+    if data is None:
+        data = await read_file(presentation.file_path)
+
     if data is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="原始文件不存在")
 

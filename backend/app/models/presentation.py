@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from enum import Enum as PyEnum
 
-from sqlalchemy import String, DateTime, func, ForeignKey, Enum, Text
+from sqlalchemy import String, DateTime, func, ForeignKey, Enum, Text, LargeBinary, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -30,6 +30,8 @@ class Presentation(Base):
     )
     title: Mapped[str] = mapped_column(String(300), nullable=False)
     file_path: Mapped[str] = mapped_column(String(500), nullable=False)
+    file_data: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True, deferred=True)
+    file_size: Mapped[int | None] = mapped_column(Integer, nullable=True)
     status: Mapped[PresentationStatus] = mapped_column(
         Enum(PresentationStatus, name="presentation_status"),
         default=PresentationStatus.processing,

@@ -195,34 +195,16 @@ function PresentationView() {
               <span className="text-sm font-medium text-gray-700">
                 第 {currentSlide + 1} / {slides.length} 页
               </span>
-              <span className="text-xs text-gray-400">浏览器端预览</span>
+              <span className="text-xs text-gray-400">浏览器端渲染</span>
             </div>
-            <div className="p-6 space-y-4 min-h-[300px]">
-              {slides[currentSlide].images.length > 0 && (
-                <div className="space-y-3">
-                  {slides[currentSlide].images.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt={`第 ${slides[currentSlide].pageNumber} 页图片 ${i + 1}`}
-                      className="max-w-full h-auto rounded-lg border border-gray-200"
-                    />
-                  ))}
-                </div>
-              )}
-              {slides[currentSlide].texts.length > 0 && (
-                <div className="space-y-2">
-                  {slides[currentSlide].texts.map((t, i) => (
-                    <p key={i} className="text-sm text-gray-800 whitespace-pre-wrap">
-                      {t}
-                    </p>
-                  ))}
-                </div>
-              )}
-              {slides[currentSlide].images.length === 0 &&
-                slides[currentSlide].texts.length === 0 && (
-                  <p className="text-gray-400 text-sm">（本页无可显示内容）</p>
-                )}
+            <div
+              className="slide-container overflow-auto"
+              style={{ background: "#e5e7eb", minHeight: 300 }}
+            >
+              <div
+                dangerouslySetInnerHTML={{ __html: slides[currentSlide].html }}
+                style={{ margin: "0 auto" }}
+              />
             </div>
           </div>
 
