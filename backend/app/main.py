@@ -12,9 +12,20 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """应用生命周期管理：启动时创建数据库表"""
+    """应用生命周期管理：启动时创建数据库表，自动迁移缺失列"""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # 自动迁移：为已有表添加缺失的列（PostgreSQL）
+        from sqlalchemy import text as sa_text
+        try:
+            await conn.execute(sa_text(
+                "ALTER TABLE presentations ADD COLUMN IF NOT EXISTS file_data BYTEA"
+            ))
+            await conn.execute(sa_text(
+                "ALTER TABLE presentations ADD COLUMN IF NOT EXISTS file_size INTEGER"
+            ))
+        except Exception:
+            pass  # SQLite 不支持 IF NOT EXISTS，忽略
     yield
     await engine.dispose()
 
