@@ -2,6 +2,13 @@
 
 LabSlide 是一个面向科研课题组场景的全栈 Web 应用，用于组会 PPT 汇报后的在线批注、讨论与知识沉淀。
 
+## 在线体验
+
+| 环境 | 地址 |
+|------|------|
+| 前端 | [labslide.pages.dev](https://labslide.pages.dev) |
+| 后端 API | [labslide.onrender.com](https://labslide.onrender.com/api/v1/health) |
+
 ## 技术栈
 
 | 层级 | 技术 |
@@ -12,20 +19,20 @@ LabSlide 是一个面向科研课题组场景的全栈 Web 应用，用于组会
 | **文件存储** | MinIO (开发) / 阿里云 OSS (生产，预留) |
 | **认证** | JWT (python-jose) |
 | **实时通知** | WebSocket (FastAPI) |
-| **部署** | Docker Compose (Nginx 反向代理) |
+| **部署** | Cloudflare Pages (前端) + Render (后端) / Docker Compose (本地) |
 
-## 快速开始
+## 本地部署（Docker）
 
 ### 前置要求
 
 - [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 - 端口 `80`, `5432`, `6379`, `9000`, `9001` 未被占用
 
-### 一键启动
+### Docker 一键启动
 
 ```bash
 # 1. 克隆项目
-git clone <repo-url> && cd LabSlide
+git clone https://github.com/labslide-app/labslide.git && cd labslide
 
 # 2. 复制环境变量
 cp .env.example .env
