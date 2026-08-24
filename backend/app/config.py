@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     # 持久化文件存储目录（生产环境挂载 Render Disk）
     STORAGE_DIR: str = "storage"
 
-    # JWT
-    JWT_SECRET_KEY: str = "labslide-production-secret-key-2024"
+    # JWT — 必须由环境变量提供，不使用硬编码默认值
+    JWT_SECRET_KEY: str = "CHANGE_ME_SET_VIA_ENV"
     JWT_ALGORITHM: str = "HS256"
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
 
@@ -26,13 +26,11 @@ class Settings(BaseSettings):
     MINIO_BUCKET: str = "labslide-uploads"
     MINIO_SECURE: bool = False
 
-    # CORS
+    # CORS — 仅允许已知域名
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
         "https://labslide.pages.dev",
-        "https://labslide-app.netlify.app",
-        "https://labslide.onrender.com",
     ]
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
