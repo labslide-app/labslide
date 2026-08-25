@@ -22,20 +22,8 @@ function AtomIcon({ className = "w-6 h-6" }: { className?: string }) {
     >
       <circle cx="12" cy="12" r="2" fill="currentColor" />
       <ellipse cx="12" cy="12" rx="10" ry="4" />
-      <ellipse
-        cx="12"
-        cy="12"
-        rx="10"
-        ry="4"
-        transform="rotate(60 12 12)"
-      />
-      <ellipse
-        cx="12"
-        cy="12"
-        rx="10"
-        ry="4"
-        transform="rotate(120 12 12)"
-      />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
     </svg>
   );
 }
@@ -50,90 +38,26 @@ function Layout() {
     navigate("/");
   };
 
-  const isHome = location.pathname === "/";
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#1a2332] text-[#f5f2ea]">
       {/* 导航栏 - 深色玻璃质感 */}
-      <header
-        className={`sticky top-0 z-50 transition-all duration-500 ${
-          isHome
-            ? "bg-[#131a26]/70 backdrop-blur-md border-b border-white/10"
-            : "bg-white/90 backdrop-blur-md shadow-sm border-b border-sky-100"
-        }`}
-      >
+      <header className="sticky top-0 z-50 bg-[#131a26]/70 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2 group">
               {/* Logo - 窗户+几何猫组合 */}
-              <div
-                className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 ${
-                  isHome
-                    ? "bg-white/10 backdrop-blur-sm border border-white/20"
-                    : "bg-gradient-to-br from-sky-400 to-sky-600 shadow-lg shadow-sky-200"
-                }`}
-              >
-                <svg
-                  viewBox="0 0 32 32"
-                  className="w-6 h-6"
-                  fill="none"
-                >
-                  {/* 窗户轮廓 */}
-                  <rect
-                    x="6"
-                    y="4"
-                    width="20"
-                    height="24"
-                    rx="2"
-                    stroke="white"
-                    strokeWidth="2"
-                    fill={isHome ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.3)"}
-                  />
-                  <line
-                    x1="16"
-                    y1="4"
-                    x2="16"
-                    y2="28"
-                    stroke="white"
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="6"
-                    y1="16"
-                    x2="26"
-                    y2="16"
-                    stroke="white"
-                    strokeWidth="1.5"
-                  />
-                  {/* 小实验元素在右下角 */}
-                  <circle
-                    cx="22"
-                    cy="23"
-                    r="2"
-                    fill="#c9a86a"
-                  />
+              <div className="relative w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-300 group-hover:scale-105">
+                <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
+                  <rect x="6" y="4" width="20" height="24" rx="2" stroke="white" strokeWidth="2" fill="rgba(255,255,255,0.08)" />
+                  <line x1="16" y1="4" x2="16" y2="28" stroke="white" strokeWidth="1.5" />
+                  <line x1="6" y1="16" x2="26" y2="16" stroke="white" strokeWidth="1.5" />
+                  <circle cx="22" cy="23" r="2" fill="#c9a86a" />
                 </svg>
               </div>
               <div className="flex items-center">
-                <span
-                  className={`text-xl font-bold tracking-tight ${
-                    isHome ? "text-[#f5f2ea]" : "text-slate-800"
-                  }`}
-                >
-                  Lab
-                </span>
-                <span
-                  className={`text-xl font-bold tracking-tight ${
-                    isHome ? "text-[#c9a86a]" : "text-sky-600"
-                  }`}
-                >
-                  Slide
-                </span>
-                <div
-                  className={`ml-1.5 ${
-                    isHome ? "text-[#c9a86a]/70" : "text-sky-400"
-                  }`}
-                >
+                <span className="text-xl font-bold tracking-tight text-[#f5f2ea]">Lab</span>
+                <span className="text-xl font-bold tracking-tight text-[#c9a86a]">Slide</span>
+                <div className="ml-1.5 text-[#c9a86a]/70">
                   <CatMark className="w-4 h-4" />
                 </div>
               </div>
@@ -144,12 +68,8 @@ function Layout() {
                 to="/"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === "/"
-                    ? isHome
-                      ? "bg-white/15 text-white"
-                      : "bg-sky-50 text-sky-700"
-                    : isHome
-                    ? "text-white/70 hover:bg-white/10 hover:text-white"
-                    : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"
+                    ? "bg-white/15 text-white"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 首页
@@ -162,12 +82,8 @@ function Layout() {
                       to={`/groups/${user.group_id}`}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         location.pathname.startsWith("/groups/")
-                          ? isHome
-                            ? "bg-white/15 text-white"
-                            : "bg-sky-50 text-sky-700"
-                          : isHome
-                          ? "text-white/70 hover:bg-white/10 hover:text-white"
-                          : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"
+                          ? "bg-white/15 text-white"
+                          : "text-white/70 hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       课题组
@@ -178,12 +94,8 @@ function Layout() {
                     to="/upload"
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       location.pathname === "/upload"
-                        ? isHome
-                          ? "bg-white/15 text-white"
-                          : "bg-sky-50 text-sky-700"
-                        : isHome
-                        ? "text-white/70 hover:bg-white/10 hover:text-white"
-                        : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"
+                        ? "bg-white/15 text-white"
+                        : "text-white/70 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     上传PPT
@@ -194,12 +106,8 @@ function Layout() {
                       to="/meetings"
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         location.pathname.startsWith("/meetings")
-                          ? isHome
-                            ? "bg-white/15 text-white"
-                            : "bg-sky-50 text-sky-700"
-                          : isHome
-                          ? "text-white/70 hover:bg-white/10 hover:text-white"
-                          : "text-slate-600 hover:bg-sky-50 hover:text-sky-700"
+                          ? "bg-white/15 text-white"
+                          : "text-white/70 hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       组会
@@ -208,20 +116,8 @@ function Layout() {
 
                   {/* 用户信息下拉 */}
                   <div className="relative group ml-2">
-                    <button
-                      className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isHome
-                          ? "bg-white/10 text-white hover:bg-white/20"
-                          : "bg-sky-50 text-sky-700 hover:bg-sky-100"
-                      }`}
-                    >
-                      <div
-                        className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                          isHome
-                            ? "bg-[#c9a86a] text-[#1a2332]"
-                            : "bg-sky-500 text-white"
-                        }`}
-                      >
+                    <button className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-white/10 text-white hover:bg-white/20">
+                      <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#c9a86a] text-[#1a2332]">
                         {user.full_name?.charAt(0) || user.email?.charAt(0)}
                       </div>
                       <span>{user.full_name}</span>
@@ -231,29 +127,21 @@ function Layout() {
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
 
                     {/* 下拉菜单 */}
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-sky-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                      <div className="px-4 py-2 border-b border-slate-100">
-                        <p className="text-sm font-medium text-slate-800 truncate">
+                    <div className="absolute right-0 mt-2 w-48 bg-[#131a26] rounded-xl shadow-xl border border-white/10 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                      <div className="px-4 py-2 border-b border-white/10">
+                        <p className="text-sm font-medium text-[#f5f2ea] truncate">
                           {user.full_name}
                         </p>
-                        <p className="text-xs text-slate-500 truncate">
-                          {user.email}
-                        </p>
+                        <p className="text-xs text-[#f5f2ea]/50 truncate">{user.email}</p>
                       </div>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors rounded-lg mx-1"
-                        style={{ width: "calc(100% - 8px)" }}
+                        className="w-full text-left px-4 py-2 text-sm text-red-300 hover:bg-red-500/10 transition-colors"
                       >
                         退出登录
                       </button>
@@ -263,15 +151,7 @@ function Layout() {
               ) : (
                 <Link
                   to="/login"
-                  className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    location.pathname === "/login"
-                      ? isHome
-                        ? "bg-[#c9a86a] text-[#1a2332] shadow-lg"
-                        : "bg-sky-500 text-white shadow-lg shadow-sky-200"
-                      : isHome
-                      ? "bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] shadow-lg shadow-[#c9a86a]/20 hover:brightness-110"
-                      : "bg-sky-500 text-white hover:bg-sky-600 shadow-lg shadow-sky-200"
-                  }`}
+                  className="px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] shadow-lg shadow-[#c9a86a]/20 hover:brightness-110"
                 >
                   登录 / 注册
                 </Link>
@@ -282,44 +162,20 @@ function Layout() {
       </header>
 
       {/* 主内容区 */}
-      <main className={`flex-1 ${isHome ? "bg-[#1a2332]" : "bg-slate-50"}`}>
+      <main className="flex-1 bg-[#1a2332]">
         <Outlet />
       </main>
 
       {/* 页脚 */}
-      <footer
-        className={`py-8 transition-all duration-500 ${
-          isHome
-            ? "bg-[#131a26]/80 backdrop-blur-sm border-t border-white/10"
-            : "bg-white border-t border-slate-100"
-        }`}
-      >
+      <footer className="py-8 bg-[#131a26]/80 backdrop-blur-sm border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-2">
-              <AtomIcon
-                className={`w-5 h-5 ${isHome ? "text-[#c9a86a]" : "text-sky-500"}`}
-              />
-              <span
-                className={`text-sm font-medium ${
-                  isHome ? "text-[#f5f2ea]" : "text-slate-700"
-                }`}
-              >
-                LabSlide
-              </span>
-              <span
-                className={`text-sm ${
-                  isHome ? "text-white/50" : "text-slate-400"
-                }`}
-              >
-                — 让科研讨论更高效
-              </span>
+              <AtomIcon className="w-5 h-5 text-[#c9a86a]" />
+              <span className="text-sm font-medium text-[#f5f2ea]">LabSlide</span>
+              <span className="text-sm text-white/50">— 让科研讨论更高效</span>
             </div>
-            <p
-              className={`text-sm ${
-                isHome ? "text-white/40" : "text-slate-400"
-              }`}
-            >
+            <p className="text-sm text-white/40">
               &copy; {new Date().getFullYear()} 课题组组会 PPT 在线批注与知识沉淀平台
             </p>
           </div>
