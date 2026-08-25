@@ -141,24 +141,24 @@ const PresentationUpload = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-12 px-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">上传 PPT</h1>
+      <h1 className="text-2xl font-bold text-[#f5f2ea] mb-8">上传 PPT</h1>
 
       <div className="space-y-6">
         {/* 组会选择 */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">组会</label>
+          <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">组会</label>
           {prefilledMeetingId ? (
-            <div className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg">
+            <div className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-lg">
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                  <p className="text-sm font-medium text-[#f5f2ea] truncate">
                     {meetingTitle || "已选择组会"}
                   </p>
-                  <p className="text-xs text-gray-500 font-mono break-all mt-0.5">{meetingId}</p>
+                  <p className="text-xs text-[#f5f2ea]/55 font-mono break-all mt-0.5">{meetingId}</p>
                 </div>
                 <Link
                   to={`/meetings/${meetingId}`}
-                  className="shrink-0 text-xs text-primary-600 hover:text-primary-700 font-medium"
+                  className="shrink-0 text-xs text-[#c9a86a] hover:text-[#e6cd96] font-medium"
                 >
                   查看组会
                 </Link>
@@ -174,19 +174,19 @@ const PresentationUpload = () => {
                   setMeetingTitle(m?.title || "");
                 }}
                 disabled={isUploading}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-lg text-sm text-[#f5f2ea] focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <option value="">请选择组会</option>
+                <option value="" className="bg-[#131a26]">请选择组会</option>
                 {meetings.map((m) => (
-                  <option key={m.id} value={m.id}>
+                  <option key={m.id} value={m.id} className="bg-[#131a26]">
                     {m.title}（{m.meeting_date}）
                   </option>
                 ))}
               </select>
               {meetings.length === 0 && (
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-[#f5f2ea]/55">
                   暂无组会，请先在组会页面创建。
-                  <Link to="/meetings" className="ml-1 text-primary-600 font-medium">
+                  <Link to="/meetings" className="ml-1 text-[#c9a86a] font-medium">
                     前往创建
                   </Link>
                 </p>
@@ -197,17 +197,17 @@ const PresentationUpload = () => {
 
         {/* 文件选择 */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">PPT 文件</label>
-          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-400 transition-colors">
+          <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">PPT 文件</label>
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-white/15 rounded-lg bg-white/[0.02] hover:border-[#c9a86a]/50 transition-colors">
             <div className="space-y-1 text-center">
-              <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+              <svg className="mx-auto h-12 w-12 text-[#f5f2ea]/40" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                 <path
                   d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                   strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
                 />
               </svg>
-              <div className="flex text-sm text-gray-600 justify-center">
-                <label className="relative cursor-pointer rounded-md font-medium text-primary-600 hover:text-primary-500">
+              <div className="flex text-sm text-[#f5f2ea]/70 justify-center">
+                <label className="relative cursor-pointer rounded-md font-medium text-[#c9a86a] hover:text-[#e6cd96]">
                   <span>选择文件</span>
                   <input
                     ref={fileInputRef}
@@ -220,11 +220,11 @@ const PresentationUpload = () => {
                 </label>
                 <p className="pl-1">或拖拽到此处</p>
               </div>
-              <p className="text-xs text-gray-500">支持 .pptx 和 .ppt，最大 100MB</p>
+              <p className="text-xs text-[#f5f2ea]/55">支持 .pptx 和 .ppt，最大 100MB</p>
             </div>
           </div>
           {file && (
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-[#f5f2ea]/70">
               已选择：<span className="font-medium">{file.name}</span> ({(file.size / 1024 / 1024).toFixed(1)} MB)
             </p>
           )}
@@ -234,17 +234,19 @@ const PresentationUpload = () => {
         {(isUploading || status.phase === "done") && (
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-[#f5f2ea]/70">
                 {isUploading ? "上传进度" : "完成"}
               </span>
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-[#f5f2ea]/70">
                 {isUploading ? `${uploadProgress}%` : "100%"}
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div className="w-full bg-white/10 rounded-full h-2.5">
               <div
                 className={`h-2.5 rounded-full transition-all duration-300 ${
-                  status.phase === "done" ? "bg-green-500" : "bg-primary-600"
+                  status.phase === "done"
+                    ? "bg-[#7fc3b8]"
+                    : "bg-gradient-to-r from-[#d8b97e] to-[#b8935a]"
                 }`}
                 style={{ width: `${uploadProgress}%` }}
               />
@@ -257,10 +259,10 @@ const PresentationUpload = () => {
           <div
             className={`p-4 rounded-lg text-sm ${
               status.phase === "error"
-                ? "bg-red-50 text-red-700 border border-red-200"
+                ? "bg-red-500/10 text-red-300 border border-red-500/30"
                 : status.phase === "done"
-                ? "bg-green-50 text-green-700 border border-green-200"
-                : "bg-gray-50 text-gray-700 border border-gray-200"
+                ? "bg-[#7fc3b8]/10 text-[#9fd8cf] border border-[#7fc3b8]/30"
+                : "bg-white/5 text-[#f5f2ea]/70 border border-white/10"
             }`}
           >
             <span>{status.message}</span>
@@ -268,7 +270,7 @@ const PresentationUpload = () => {
               <div className="mt-2">
                 <Link
                   to={`/presentations/${status.presentationId}`}
-                  className="inline-block px-3 py-1.5 bg-primary-600 text-white rounded-md text-xs font-medium hover:bg-primary-700"
+                  className="inline-block px-3 py-1.5 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-md text-xs font-medium hover:brightness-110"
                 >
                   立即查看 PPT
                 </Link>
@@ -283,14 +285,14 @@ const PresentationUpload = () => {
             <button
               onClick={handleUpload}
               disabled={!file || !meetingId.trim()}
-              className="flex-1 py-2.5 px-4 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="flex-1 py-2.5 px-4 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] text-sm font-medium rounded-lg shadow-lg shadow-[#c9a86a]/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               上传
             </button>
           ) : (
             <button
               onClick={handleCancel}
-              className="flex-1 py-2.5 px-4 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+              className="flex-1 py-2.5 px-4 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-500 transition-colors"
             >
               取消
             </button>
@@ -298,7 +300,7 @@ const PresentationUpload = () => {
           <button
             onClick={handleReset}
             disabled={isUploading}
-            className="px-4 py-2.5 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2.5 border border-white/20 text-sm font-medium rounded-lg text-[#f5f2ea]/80 hover:border-white/40 hover:text-[#f5f2ea] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             重置
           </button>
