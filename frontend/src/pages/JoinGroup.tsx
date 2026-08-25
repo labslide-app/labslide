@@ -90,10 +90,10 @@ function JoinGroup() {
   if (alreadyInGroup && !joinedGroupId) {
     return (
       <div className="max-w-lg mx-auto mt-12 px-4">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center shadow-xl backdrop-blur-md">
+          <div className="w-16 h-16 bg-[#7fc3b8]/15 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-8 h-8 text-blue-600"
+              className="w-8 h-8 text-[#9fd8cf]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -106,20 +106,20 @@ function JoinGroup() {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">你已在课题组中</h2>
-          <p className="text-gray-500 mb-6">
+          <h2 className="text-xl font-bold text-[#f5f2ea] mb-2">你已在课题组中</h2>
+          <p className="text-[#f5f2ea]/55 mb-6">
             每个用户只能加入一个课题组。如需更换课题组，请先退出当前课题组。
           </p>
           <div className="space-y-3">
             <Link
               to={`/groups/${user!.group_id}`}
-              className="block w-full py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
+              className="block w-full py-2.5 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-lg font-medium shadow-lg shadow-[#c9a86a]/20 hover:brightness-110 transition-colors"
             >
               查看我的课题组
             </Link>
             <Link
               to="/"
-              className="block w-full py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+              className="block w-full py-2.5 border border-white/20 text-[#f5f2ea]/80 rounded-lg font-medium hover:border-white/40 hover:text-[#f5f2ea] transition-colors"
             >
               返回首页
             </Link>
@@ -133,10 +133,10 @@ function JoinGroup() {
   if (joinedGroupId) {
     return (
       <div className="max-w-lg mx-auto mt-12 px-4">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center shadow-xl backdrop-blur-md">
+          <div className="w-16 h-16 bg-[#7fc3b8]/15 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-8 h-8 text-green-600 animate-bounce"
+              className="w-8 h-8 text-[#9fd8cf] animate-bounce"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -149,9 +149,9 @@ function JoinGroup() {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">加入成功！</h2>
-          <p className="text-gray-500 mb-6">正在跳转到课题组详情页...</p>
-          <div className="animate-spin h-6 w-6 border-2 border-primary-200 border-t-primary-600 rounded-full mx-auto" />
+          <h2 className="text-2xl font-bold text-[#f5f2ea] mb-2">加入成功！</h2>
+          <p className="text-[#f5f2ea]/55 mb-6">正在跳转到课题组详情页...</p>
+          <div className="animate-spin h-6 w-6 border-2 border-white/20 border-t-[#c9a86a] rounded-full mx-auto" />
         </div>
       </div>
     );
@@ -159,16 +159,16 @@ function JoinGroup() {
 
   return (
     <div className="max-w-lg mx-auto mt-12 px-4">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 shadow-xl backdrop-blur-md">
+        <h2 className="text-2xl font-bold text-[#f5f2ea] text-center mb-2">
           加入课题组
         </h2>
-        <p className="text-center text-gray-500 text-sm mb-6">
+        <p className="text-center text-[#f5f2ea]/55 text-sm mb-6">
           输入管理员提供的邀请码，即可加入课题组
         </p>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600 flex items-start space-x-2">
+          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-300 flex items-start space-x-2">
             <svg
               className="w-4 h-4 mt-0.5 flex-shrink-0"
               fill="none"
@@ -188,14 +188,14 @@ function JoinGroup() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">
               邀请码
             </label>
             <input
               type="text"
               required
               placeholder="直接粘贴邀请码，如 LAB-XXXX-XXXX"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-center text-lg font-mono tracking-wider focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+              className="w-full px-3 py-2.5 bg-white/5 border border-white/15 rounded-lg text-center text-lg font-mono tracking-wider text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none transition"
               value={inviteCode}
               onChange={(e) => {
                 setInviteCode(e.target.value);
@@ -207,14 +207,14 @@ function JoinGroup() {
             {/* 实时预览 */}
             {preview && (
               <div className="mt-2 flex items-center justify-center space-x-2 text-sm">
-                <span className="text-gray-400">识别为：</span>
-                <span className="font-mono font-bold text-primary-700 bg-primary-50 px-2 py-0.5 rounded">
+                <span className="text-[#f5f2ea]/40">识别为：</span>
+                <span className="font-mono font-bold text-[#e6cd96] bg-[#c9a86a]/10 px-2 py-0.5 rounded">
                   {preview}
                 </span>
               </div>
             )}
             {!preview && inviteCode.trim() && (
-              <p className="mt-1 text-xs text-gray-400 text-center">
+              <p className="mt-1 text-xs text-[#f5f2ea]/40 text-center">
                 邀请码需要包含 8 位字母或数字
               </p>
             )}
@@ -223,7 +223,7 @@ function JoinGroup() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 active:bg-primary-800 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base"
+            className="w-full py-3 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-lg font-semibold shadow-lg shadow-[#c9a86a]/20 hover:brightness-110 focus:ring-2 focus:ring-[#c9a86a]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -255,10 +255,10 @@ function JoinGroup() {
         </form>
 
         {/* 底部提示 */}
-        <div className="mt-6 pt-4 border-t border-gray-100">
-          <p className="text-xs text-gray-400 text-center">
+        <div className="mt-6 pt-4 border-t border-white/10">
+          <p className="text-xs text-[#f5f2ea]/40 text-center">
             没有邀请码？
-            <Link to="/groups/create" className="text-primary-600 hover:underline ml-1">
+            <Link to="/groups/create" className="text-[#c9a86a] hover:underline ml-1">
               创建一个课题组
             </Link>
           </p>
