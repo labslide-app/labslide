@@ -115,8 +115,8 @@ function PresentationView() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <div className="animate-spin h-8 w-8 border-4 border-primary-200 border-t-primary-600 rounded-full mx-auto mb-4" />
-        <p className="text-gray-500">加载 PPT...</p>
+        <div className="animate-spin h-8 w-8 border-4 border-white/20 border-t-[#c9a86a] rounded-full mx-auto mb-4" />
+        <p className="text-[#f5f2ea]/55">加载 PPT...</p>
       </div>
     );
   }
@@ -124,19 +124,19 @@ function PresentationView() {
   if (error || !presentation) {
     return (
       <div className="max-w-lg mx-auto mt-12 px-4">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">无法加载</h2>
-          <p className="text-gray-500 mb-6">{error || "PPT 不存在"}</p>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center shadow-xl backdrop-blur-md">
+          <h2 className="text-xl font-bold text-[#f5f2ea] mb-2">无法加载</h2>
+          <p className="text-[#f5f2ea]/55 mb-6">{error || "PPT 不存在"}</p>
           <div className="flex justify-center space-x-3">
             <button
               onClick={fetchPresentation}
-              className="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700"
+              className="px-6 py-2 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-lg font-medium shadow-lg shadow-[#c9a86a]/20 hover:brightness-110"
             >
               重试
             </button>
             <Link
               to="/"
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
+              className="px-6 py-2 border border-white/20 text-[#f5f2ea]/80 rounded-lg font-medium hover:border-white/40 hover:text-[#f5f2ea]"
             >
               返回首页
             </Link>
@@ -158,19 +158,19 @@ function PresentationView() {
       {/* 标题栏 */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{presentation.title}</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-[#f5f2ea]">{presentation.title}</h1>
+          <p className="mt-1 text-sm text-[#f5f2ea]/55">
             上传者：{presentation.owner_name} ·{" "}
             {new Date(presentation.created_at).toLocaleString("zh-CN")}
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+          <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#7fc3b8]/15 text-[#9fd8cf]">
             可查看
           </span>
           <Link
             to="/"
-            className="px-3 py-1 border border-gray-300 text-gray-700 rounded-lg text-xs font-medium hover:bg-gray-50"
+            className="px-3 py-1 border border-white/20 text-[#f5f2ea]/80 rounded-lg text-xs font-medium hover:border-white/40 hover:text-[#f5f2ea]"
           >
             返回
           </Link>
@@ -179,9 +179,9 @@ function PresentationView() {
 
       {/* 预览失败提示 */}
       {parseError && slides.length === 0 && (
-        <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-sm text-yellow-700">{parseError}</p>
-          <p className="text-xs text-yellow-600 mt-1">
+        <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+          <p className="text-sm text-amber-300">{parseError}</p>
+          <p className="text-xs text-amber-300/80 mt-1">
             仍可在下方查看他人批注，但无法逐页预览该文件。
           </p>
         </div>
@@ -190,16 +190,16 @@ function PresentationView() {
       {/* 幻灯片 */}
       {slides.length > 0 && (
         <>
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-4">
-            <div className="bg-gray-50 border-b border-gray-200 px-4 py-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] overflow-hidden mb-4 backdrop-blur-md">
+            <div className="bg-white/5 border-b border-white/10 px-4 py-2 flex items-center justify-between">
+              <span className="text-sm font-medium text-[#f5f2ea]/70">
                 第 {currentSlide + 1} / {slides.length} 页
               </span>
-              <span className="text-xs text-gray-400">浏览器端渲染</span>
+              <span className="text-xs text-[#f5f2ea]/40">浏览器端渲染</span>
             </div>
             <div
               className="slide-container overflow-auto"
-              style={{ background: "#e5e7eb", minHeight: 300 }}
+              style={{ background: "#0f1722", minHeight: 300 }}
             >
               <div
                 dangerouslySetInnerHTML={{ __html: slides[currentSlide].html }}
@@ -213,7 +213,7 @@ function PresentationView() {
             <button
               onClick={() => setCurrentSlide((s) => Math.max(0, s - 1))}
               disabled={currentSlide === 0}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 border border-white/20 text-[#f5f2ea]/80 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 hover:text-[#f5f2ea]"
             >
               上一页
             </button>
@@ -224,8 +224,8 @@ function PresentationView() {
                   onClick={() => setCurrentSlide(idx)}
                   className={`w-9 h-9 rounded-lg text-xs font-medium transition-colors ${
                     idx === currentSlide
-                      ? "bg-primary-600 text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      ? "bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332]"
+                      : "bg-white/10 text-[#f5f2ea]/70 hover:bg-white/15"
                   }`}
                 >
                   {s.pageNumber}
@@ -235,7 +235,7 @@ function PresentationView() {
             <button
               onClick={() => setCurrentSlide((s) => Math.min(slides.length - 1, s + 1))}
               disabled={currentSlide === slides.length - 1}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 border border-white/20 text-[#f5f2ea]/80 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 hover:text-[#f5f2ea]"
             >
               下一页
             </button>
@@ -244,12 +244,12 @@ function PresentationView() {
       )}
 
       {/* 批注区 */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-[#f5f2ea]">
             批注{currentPage ? `（第 ${currentPage} 页）` : ""}
           </h2>
-          <span className="text-sm text-gray-500">{slideAnnotations.length} 条</span>
+          <span className="text-sm text-[#f5f2ea]/55">{slideAnnotations.length} 条</span>
         </div>
 
         {/* 批注输入 */}
@@ -261,13 +261,13 @@ function PresentationView() {
               slides.length > 0 ? "对该页写批注..." : "写批注（不区分页码）..."
             }
             rows={2}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none"
+            className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-lg text-sm text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none resize-none"
           />
           <div className="mt-2 flex justify-end">
             <button
               onClick={submitAnnotation}
               disabled={submitting || !newAnnotation.trim()}
-              className="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-lg text-sm font-medium shadow-lg shadow-[#c9a86a]/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting ? "提交中..." : "添加批注"}
             </button>
@@ -276,31 +276,31 @@ function PresentationView() {
 
         {/* 批注列表 */}
         {slideAnnotations.length === 0 ? (
-          <p className="text-sm text-gray-400">暂无批注</p>
+          <p className="text-sm text-[#f5f2ea]/40">暂无批注</p>
         ) : (
           <ul className="space-y-3">
             {slideAnnotations.map((ann) => (
-              <li key={ann.id} className="border border-gray-200 rounded-lg p-4">
+              <li key={ann.id} className="border border-white/10 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center space-x-2">
-                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-100 text-primary-700 text-xs font-bold">
+                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#c9a86a]/15 text-[#e6cd96] text-xs font-bold">
                       {ann.user_name.charAt(0)}
                     </span>
-                    <span className="text-sm font-medium text-gray-900">{ann.user_name}</span>
+                    <span className="text-sm font-medium text-[#f5f2ea]">{ann.user_name}</span>
                     {user?.id === ann.user_id && (
-                      <span className="text-xs text-primary-600">（我）</span>
+                      <span className="text-xs text-[#c9a86a]">（我）</span>
                     )}
                   </div>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-[#f5f2ea]/40">
                     {new Date(ann.created_at).toLocaleString("zh-CN")}
                   </span>
                 </div>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">{ann.content}</p>
+                <p className="text-sm text-[#f5f2ea]/80 whitespace-pre-wrap">{ann.content}</p>
                 {canDelete(ann) && (
                   <div className="mt-2 text-right">
                     <button
                       onClick={() => deleteAnnotation(ann.id)}
-                      className="text-xs text-red-500 hover:text-red-700"
+                      className="text-xs text-red-300 hover:text-red-400"
                     >
                       删除
                     </button>
