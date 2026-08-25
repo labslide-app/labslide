@@ -51,20 +51,23 @@ function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-12rem)] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
+    <div className="relative min-h-[calc(100vh-12rem)] flex items-center justify-center px-4">
+      {/* 背景氛围 */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(900px_480px_at_50%_-10%,rgba(201,168,106,0.10),transparent),radial-gradient(700px_400px_at_90%_110%,rgba(127,195,184,0.08),transparent)]" />
+      </div>
+
+      <div className="relative w-full max-w-md">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 shadow-xl backdrop-blur-md">
+          <h2 className="text-2xl font-bold text-[#f5f2ea] text-center mb-2">
             {isRegister ? "注册 LabSlide" : "登录 LabSlide"}
           </h2>
-          <p className="text-center text-gray-500 text-sm mb-6">
-            {isRegister
-              ? "加入课题组，开始协作"
-              : "欢迎回来，请登录你的账号"}
+          <p className="text-center text-[#f5f2ea]/55 text-sm mb-6">
+            {isRegister ? "加入课题组，开始协作" : "欢迎回来，请登录你的账号"}
           </p>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-300">
               {error}
             </div>
           )}
@@ -72,14 +75,14 @@ function Login() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* 邮箱 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">
                 邮箱
               </label>
               <input
                 type="email"
                 required
                 placeholder="your@email.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-lg text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none transition"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -90,14 +93,14 @@ function Login() {
             {/* 注册时额外字段 */}
             {isRegister && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">
                   姓名
                 </label>
                 <input
                   type="text"
                   required
                   placeholder="你的真实姓名"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-lg text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none transition"
                   value={formData.full_name}
                   onChange={(e) =>
                     setFormData({ ...formData, full_name: e.target.value })
@@ -108,7 +111,7 @@ function Login() {
 
             {/* 密码 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">
                 密码
               </label>
               <input
@@ -116,7 +119,7 @@ function Login() {
                 required
                 minLength={6}
                 placeholder="至少 6 位密码"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-lg text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none transition"
                 value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -127,14 +130,14 @@ function Login() {
             {/* 注册邀请码（可选） */}
             {isRegister && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[#f5f2ea]/70 mb-1">
                   邀请码{" "}
-                  <span className="text-gray-400 font-normal">（可选）</span>
+                  <span className="text-[#f5f2ea]/40 font-normal">（可选）</span>
                 </label>
                 <input
                   type="text"
                   placeholder="输入课题组邀请码加入"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-lg text-[#f5f2ea] placeholder-white/30 focus:ring-2 focus:ring-[#c9a86a]/25 focus:border-[#c9a86a]/60 outline-none transition"
                   value={formData.invite_code}
                   onChange={(e) =>
                     setFormData({ ...formData, invite_code: e.target.value })
@@ -146,7 +149,7 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2.5 bg-gradient-to-r from-[#d8b97e] to-[#b8935a] text-[#1a2332] rounded-lg font-medium shadow-lg shadow-[#c9a86a]/20 hover:brightness-110 focus:ring-2 focus:ring-[#c9a86a]/40 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -186,7 +189,7 @@ function Login() {
                 setIsRegister(!isRegister);
                 setError("");
               }}
-              className="text-sm text-primary-600 hover:text-primary-500"
+              className="text-sm text-[#c9a86a] hover:text-[#e6cd96]"
             >
               {isRegister ? "已有账号？去登录" : "没有账号？去注册"}
             </button>
