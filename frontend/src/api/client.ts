@@ -11,13 +11,27 @@ const apiClient = axios.create({
   },
 });
 
-// 响应拦截器：处理 401 跳转登录
+// 请求拦截器：自动附加 JWT Token
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// 响应拦截器：处理 401 等错误
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       const isAuthEndpoint = error.config?.url?.includes("/auth/");
       if (!isAuthEndpoint) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
         window.location.href = "/login";
       }
     }
