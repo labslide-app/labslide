@@ -4,20 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 天蓝色系 - 天空、窗户玻璃
-        sky: {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
-        },
-        // 深蓝色系 - 理工科、实验
+        // 深海军蓝系 - 全局深色背景
         navy: {
           50: "#f0f4fa",
           100: "#d9e2f3",
@@ -28,31 +15,44 @@ export default {
           600: "#2f4b84",
           700: "#263c6b",
           800: "#1f3258",
-          900: "#1a2a4a",
+          900: "#1a2332",
         },
-        // 窗户边框 - 暖白木质感
-        window: {
-          frame: "#f8fafc",
-          shadow: "#cbd5e1",
-          glass: "rgba(255,255,255,0.25)",
+        surface: {
+          DEFAULT: "#1a2332",
+          deep: "#131a26",
         },
+        // 米白文字
+        ivory: {
+          DEFAULT: "#f5f2ea",
+        },
+        // 主色：低饱和金色
         primary: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
+          50: "#fdf8ef",
+          100: "#f7ecd7",
+          200: "#eed9ae",
+          300: "#e6cd96",
+          400: "#d8b97e",
+          500: "#c9a86a",
+          600: "#b8935a",
+          700: "#9d7f4c",
+          800: "#82683e",
+          900: "#6a5434",
+        },
+        // 柔和青绿点缀
+        accent: {
+          DEFAULT: "#7fc3b8",
+          light: "#9fd8cf",
+        },
+        window: {
+          frame: "#c9a86a",
+          shadow: "#1a2332",
+          glass: "rgba(255,255,255,0.05)",
         },
       },
       boxShadow: {
-        window: "0 25px 50px -12px rgba(14, 165, 233, 0.25), 0 0 0 1px rgba(186, 230, 253, 0.5) inset",
-        "window-deep": "0 35px 60px -15px rgba(12, 74, 110, 0.3), inset 0 1px 0 rgba(255,255,255,0.6)",
-        glass: "inset 0 1px 1px rgba(255,255,255,0.8), inset 0 -1px 1px rgba(0,0,0,0.05)",
+        window: "0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(201, 168, 106, 0.25) inset",
+        "window-deep": "0 35px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+        glass: "inset 0 1px 1px rgba(255,255,255,0.08), inset 0 -1px 1px rgba(0,0,0,0.1)",
       },
       animation: {
         float: "float 6s ease-in-out infinite",
