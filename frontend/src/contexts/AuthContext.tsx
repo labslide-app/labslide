@@ -8,6 +8,8 @@ import {
 } from "react";
 import apiClient from "../api/client";
 
+const TOKEN_KEY = "access_token";
+
 interface User {
   id: string;
   email: string;
@@ -37,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 启动时通过 cookie 校验登录状态
+  // 启动时校验登录状态（Bearer token + Cookie 双通道）
   useEffect(() => {
     apiClient
       .get("/auth/me")
@@ -54,6 +56,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     const response = await apiClient.post("/auth/login", { email, password });
+    const token = response.data?.access_token;
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+    }
     setUser(response.data.user);
   }, []);
 
@@ -70,6 +76,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         full_name,
         invite_code: invite_code || "",
       });
+      const token = response.data?.access_token;
+      if (token) {
+        localStorage.setItem(TOKEN_KEY, token);
+      }
       setUser(response.data.user);
     },
     []
@@ -81,6 +91,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch {
       // ignore network errors on logout
     }
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem("user");
     setUser(null);
   }, []);
 
